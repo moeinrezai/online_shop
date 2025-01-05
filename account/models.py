@@ -48,7 +48,7 @@ class User(AbstractBaseUser):
         verbose_name= 'کاربر'
         verbose_name_plural= 'کاربران'
     def __str__(self):
-        return self.fullname
+        return self.phone
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
