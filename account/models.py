@@ -34,14 +34,17 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(verbose_name="آدرس ایمیل", max_length=255, unique=True)
     fullname= models.CharField(max_length=100, verbose_name="نام کامل")
-    is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True, verbose_name='فعال')
+    is_admin = models.BooleanField(default=False, verbose_name='ادمین')
 
     objects = UserManager()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
+    class Meta:
+        verbose_name= 'کاربر'
+        verbose_name_plural= 'کاربران'
     def __str__(self):
         return self.email
 
