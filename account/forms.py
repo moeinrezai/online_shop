@@ -2,7 +2,7 @@ from django import forms
 from .models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
+from django.core import validators
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -46,5 +46,5 @@ class UserChangeForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    phone = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
+    phone = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}), validators=[validators.MaxLengthValidator(11)] )
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': "form-control"}))
