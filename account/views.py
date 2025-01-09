@@ -51,7 +51,7 @@ class RegisterView(View):
 
             sms.verification({'receptor': cd["phone"], 'type': '1', 'template': 'Ghasedak', 'parm1': randcode})
 
-  #  ta daghighe 5:42
+
 
         else:
             form.add_error("phone", "invalid data")
