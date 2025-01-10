@@ -3,7 +3,7 @@
 {% block main %}
     <!-- Contact Start -->
     <div class="container-fluid">
-        <h2 class="section-title position-relative text-uppercase text-center mx-xl-5 mb-4"><span class="bg-secondary pr-3">User Register</span></h2>
+        <h2 class="section-title position-relative text-uppercase text-center mx-xl-5 mb-4"><span class="bg-secondary pr-3">Check Otp</span></h2>
         <div class=" px-xl-5">
             <div class=" mb-5 contact-us" style="">
                 <div class="contact-form bg-light p-30">
@@ -14,7 +14,7 @@
                             {% for error in form.phone.errors %}
                                 <p class="alert alert-danger">{{ error }}</p>
                             {% endfor %}
-                            {{ form.phone }}
+                            {{ form.code }}
                             <p class="help-block text-danger"></p>
                         </div>
 
