@@ -1,7 +1,7 @@
 from random import randint
 from django.shortcuts import render, redirect, reverse
 from django.views import View
-from .forms import LoginForm, RegisterForm, CheckOtpForm
+from .forms import LoginForm, OtpLoginForm, CheckOtpForm
 from django.contrib.auth import authenticate, login
 from uuid import uuid4
 from .models import Otp, User
@@ -38,11 +38,11 @@ class UserLogin(View):
 
 class Otp_LoginView(View):
     def get(self, request):
-        form = RegisterForm()
+        form = OtpLoginForm()
         return render(request, 'account/otp_login.html', {'form': form})
 
     def post(self, request):
-        form = RegisterForm(request.POST)
+        form = OtpLoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             randcode = randint(1000,9999)
