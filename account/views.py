@@ -2,7 +2,7 @@ from random import randint
 from django.shortcuts import render, redirect, reverse
 from django.views import View
 from .forms import LoginForm, OtpLoginForm, CheckOtpForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from uuid import uuid4
 from .models import Otp, User
 import ghasedakpack
@@ -80,3 +80,8 @@ class CheckOtpView(View):
             form.add_error("phone", "invalid data")
 
         return render(request, "account/check_otp.html", {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('/')
