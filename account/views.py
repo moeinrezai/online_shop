@@ -1,11 +1,8 @@
 from random import randint
 from django.shortcuts import render, redirect, reverse
 from django.views import View
-from django.views.generic import TemplateView
 from .forms import LoginForm, RegisterForm, CheckOtpForm
 from django.contrib.auth import authenticate, login
-import requests
-from django.utils.crypto import get_random_string
 from uuid import uuid4
 from .models import Otp, User
 import ghasedakpack
@@ -50,7 +47,7 @@ class Otp_LoginView(View):
             cd = form.cleaned_data
             randcode = randint(1000,9999)
             sms.verification({'receptor': cd["phone"], 'type': '1', 'template': 'Ghasedak', 'param1': randcode})
-
+            print(randcode)
             token = str(uuid4())
             Otp.objects.create(phone=cd['phone'], code=randcode, token=token)
 
@@ -75,13 +72,11 @@ class CheckOtpView(View):
             cd = form.cleaned_data
             if Otp.objects.filter(code=cd['code'], token=token).exists():
                 otp = Otp.objects.get(token=token)
-                user, is_create = User.objects.get_or_create_user(phone=otp.phone)
-                login(request, user)
+                user, is_create = User.objects.get_or_create(phone=otp.phone)
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 otp.delete()
                 return redirect('/')
         else:
             form.add_error("phone", "invalid data")
 
         return render(request, "account/check_otp.html", {'form': form})
-
-
