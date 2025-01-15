@@ -34,8 +34,8 @@
                         <form>
                             {% for size in product.size.all %}
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="size-1" name="size">
-                                    <label class="custom-control-label" for="size-1">{{ size.title }}</label>
+                                    <input type="radio" class="custom-control-input" id="{{ size.title }}" name="size">
+                                    <label class="custom-control-label" for="{{ size.title }}">{{ size.title }}</label>
                                 </div>
                             {% endfor %}
                         </form>
@@ -47,8 +47,8 @@
                         <form>
                             {% for color in product.color.all %}
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="color-1" name="color">
-                                    <label class="custom-control-label" for="color-1">{{ color.title }}</label>
+                                    <input type="radio" class="custom-control-input" id="{{ color.title }}" name="color">
+                                    <label class="custom-control-label" for="{{ color.title }}">{{ color.title }}</label>
                                 </div>
                             {% endfor %}
 
@@ -91,40 +91,17 @@
                         </div>
                         <div class="tab-pane fade" id="tab-pane-2">
                             <h4 class="mb-3">Additional Information</h4>
-                            {{  }}
                             <div class="row">
-                                <div class="col-md-6">
+                                {% for info in product.information.all %}
+                                    <div class="col-md-6">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item px-0">
-                                            Sit erat duo lorem duo ea consetetur, et eirmod takimata.
-                                        </li>
-                                        <li class="list-group-item px-0">
-                                            Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                        </li>
-                                        <li class="list-group-item px-0">
-                                            Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                        </li>
-                                        <li class="list-group-item px-0">
-                                            Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                            {{ info.text }}
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="col-md-6">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item px-0">
-                                            Sit erat duo lorem duo ea consetetur, et eirmod takimata.
-                                        </li>
-                                        <li class="list-group-item px-0">
-                                            Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                        </li>
-                                        <li class="list-group-item px-0">
-                                            Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                        </li>
-                                        <li class="list-group-item px-0">
-                                            Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
-                                        </li>
-                                    </ul>
-                                </div>
+                                {% endfor %}
+
                             </div>
                         </div>
                         <div class="tab-pane fade" id="tab-pane-3">
