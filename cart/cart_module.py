@@ -3,14 +3,13 @@ from product.models import Product
 CART_SESSION_ID = 'cart'
 
 class Cart:
-    def __int__(self, request):
+    def __init__(self, request):
         self.session = request.session
         cart = self.session.get(CART_SESSION_ID)
         if not cart:
             cart = self.session[CART_SESSION_ID] = {}
 
         self.cart = cart
-
 
     def __iter__(self):
         cart = self.cart.copy()
@@ -30,7 +29,7 @@ class Cart:
         unique = self.unique_id_generator(product.id, color, size)
         if unique not in self.cart:
             self.cart[unique] = {'quantity': 0, 'price': str(product.price),
-                                 'color': color, 'size': size, 'id': product.id}
+                                 'color': color, 'size': size, 'id': str(product.id)}
 
         self.cart[unique]['quantity'] += int(quantity)
         self.save()
