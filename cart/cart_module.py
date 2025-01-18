@@ -38,9 +38,7 @@ class Cart:
 
     def total(self):
         cart = self.cart.values()
-        total = 0
-        for item in cart:
-            total += item['total']
+        total = sum(int(item['price']) * int(item['quantity']) for item in cart)
         return total
 
 
