@@ -52,8 +52,10 @@
                             <h5>Total</h5>
                             <h5>${{ order.total_price }}</h5>
                         </div>
-                        <a href="{% url 'cart:order_creation' %}"
+                        {% if request.user.address.all %}
+                            <a href="{% url 'cart:order_creation' %}"
                            class="btn btn-block btn-success font-weight-bold my-3 py-3">Pay</a>
+                        {% endif %} 
                     </div>
                 </div>
                 {% if request.user.address.all %}
@@ -66,7 +68,7 @@
                            class="btn btn-block btn-primary font-weight-bold my-3 py-3">Add Another Address</a>
                 {% else %}
                     <a href="{% url 'account:add_address' %}?next={% url 'cart:order_detail' order.id %}"
-                           class="btn btn-block btn-primary font-weight-bold my-3 py-3"> you Dont Have Address</a>
+                           class="btn btn-block btn-primary font-weight-bold my-3 py-3"> You Dont Have Address</a>
                 {% endif %}
             </div>
         </div>
