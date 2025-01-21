@@ -39,7 +39,8 @@
                 <form class="mb-30" method="post" action="{% url 'cart:apply_discount' order.id %}">
                     {% csrf_token %}
                     <div class="input-group">
-                        <input type="text" name="discount_code" class="form-control border-0 p-4" placeholder="Discount Code">
+                        <input type="text" name="discount_code" class="form-control border-0 p-4"
+                               placeholder="Discount Code">
                         <div class="input-group-append">
                             <button class="btn btn-primary">Apply Coupon</button>
                         </div>
@@ -53,23 +54,29 @@
                             <h5>Total</h5>
                             <h5>${{ order.total_price }}</h5>
                         </div>
-                        {% if request.user.address.all %}
-                            <a href="{% url 'cart:order_creation' %}"
-                           class="btn btn-block btn-success font-weight-bold my-3 py-3">Pay</a>
-                        {% endif %} 
+                        {#                        {% if request.user.address.all %}#}
+                        {#                            <a href="{% url 'cart:order_creation' %}"#}
+                        {#                           class="btn btn-block btn-success font-weight-bold my-3 py-3">Pay</a>#}
+                        {#                        {% endif %} #}
                     </div>
                 </div>
                 {% if request.user.address.all %}
-                    <select class="form-control" aria-label="Default select example">
-                        {% for item in request.user.address.all %}
-                            <option value="3">{{ item.address }}</option>
-                        {% endfor %}
-                    </select>
-                    <a href="{% url 'account:add_address' %}?next={% url 'cart:order_detail' order.id %}"
+                    <form action="{% url 'cart:send_request' order.id %}" method="post">
+                    {% csrf_token %}
+                        <select name="address" class="form-control" aria-label="Default select example">
+                            {% for item in request.user.address.all %}
+                                <option value="{{ address.address }}">{{ item.address }}</option>
+                            {% endfor %}
+                        </select>
+                        <a href="{% url 'account:add_address' %}?next={% url 'cart:order_detail' order.id %}"
                            class="btn btn-block btn-primary font-weight-bold my-3 py-3">Add Another Address</a>
+                        <button type="submit"
+                                class="btn btn-block btn-success font-weight-bold my-3 py-3">Pay
+                        </button>
+                    </form>
                 {% else %}
                     <a href="{% url 'account:add_address' %}?next={% url 'cart:order_detail' order.id %}"
-                           class="btn btn-block btn-primary font-weight-bold my-3 py-3"> You Dont Have Address</a>
+                       class="btn btn-block btn-primary font-weight-bold my-3 py-3"> You Dont Have Address</a>
                 {% endif %}
             </div>
         </div>
