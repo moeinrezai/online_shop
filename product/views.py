@@ -19,3 +19,13 @@ class NavbarPartialView(TemplateView):
 class ProductsListView(ListView):
     template_name = 'product/product_list.html'
     queryset = Product.objects.all()
+
+    def get_context_data(self, **kwargs):
+        request = self.request
+        colors = request.GET.getlist('color')
+        sizes = request.GET.getlist('size')
+        min_price = request.GET.get('min_price')
+        max_price = request.GET.get('max_price')
+        contex = super(ProductsListView, self).get_context_data()
+        contex['object_list'] = Product.objects.all()
+        return contex
