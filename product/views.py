@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, ListView
 from .models import Product, Category
 
 
@@ -15,3 +15,7 @@ class NavbarPartialView(TemplateView):
         contex = super(NavbarPartialView, self).get_context_data()
         contex['categories'] = Category.objects.all()
         return contex
+
+class ProductsListView(ListView):
+    template_name = 'product/product_list.html'
+    queryset = Product.objects.all()
