@@ -25,6 +25,13 @@ class ProductsListView(ListView):
         sizes = request.GET.getlist('size')
         min_price = request.GET.get('min_price')
         max_price = request.GET.get('max_price')
+        queryset = Product.objects.all()
+        if colors:
+            queryset = queryset.filter(color__title__in=colors).distinct()
+        if sizes:
+            queryset = queryset.filter(size__title__in=sizes).distinct()
+        if min_price and max_price:
+            queryset = queryset.filter(price__lte=max_price, price__gte=min_price)
         contex = super(ProductsListView, self).get_context_data()
-        contex['object_list'] = Product.objects.all()
+        contex['object_list'] = queryset
         return contex
