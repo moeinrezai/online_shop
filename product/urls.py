@@ -4,7 +4,6 @@ from .views import NavbarPartialView
 
 app_name = 'product'
 urlpatterns = [
-
     path('all', views.ProductsListView.as_view(), name="product_list"),
     path('<int:pk>', views.ProductView.as_view(), name="product_detail"),
     path('navbar', NavbarPartialView.as_view(), name="navbar"),
