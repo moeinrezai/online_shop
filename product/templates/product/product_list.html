@@ -77,7 +77,6 @@
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                                 <input type="checkbox" name="size" value="s" class="custom-control-input" id="size-2">
                                 <label class="custom-control-label" for="size-2">S</label>
-
                             </div>
                             <input type="submit">
                     </form>
@@ -149,22 +148,37 @@
                 {% endfor %}
 
 
-                <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+                <div class="col-12">
+                    {% if page_obj.has_other_pages %}
+                        <ul class="pagination justify-content-center" style="font-size: 45px;">
+                            {% if page_obj.has_previous %}
+                                <li><a href="?page=
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+                                        {{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                                        class="fa fa-angle-double-left"></i></a></li>
+                            {% endif %}
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
+                            {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="active"><a href="?page=
+                                            {{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li><a href="?page=
+                                            {{ i }}{% if request.GET.q %}&q={{ request.Get.q }}{% endif %}">{{ i }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+
+                            {% if page_obj.has_next %}
+                                <li><a href="?page=
+
+                                        {{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                                        class="fa fa-angle-double-right"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -173,3 +187,4 @@
     <!-- Shop End -->
 
 {% endblock %}
+

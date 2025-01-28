@@ -58,5 +58,5 @@ class ProductListView(ListView):
         if sizes:
             queryset = queryset.filter(size__title__in=sizes).distinct()
         if min_price and max_price:
-            queryset = queryset.filter(price__lte=max_price, price__gte=min_price)
+            queryset = queryset.filter(price__gte=min_price, price__lte=max_price)
         return queryset
